@@ -1,5 +1,6 @@
-'use strict' // use of strict is that we have to declare variable first then use.
+// use of strict is that we have to declare variable first then use.
 // normally in java stript we can use variable fisrt before declaring
+'use strict' 
 var express = require('express');
 var app = express();
 var body_parser = require('body-parser');
@@ -10,7 +11,6 @@ var authRoute  = require('./userController.js');
 var dbconnection = require('./db/dbconnection');
 var config = require('./config/config.js');
 var routerdemo = require('./routingdemo/routingdemo.js');
-//var github  = require('./request-promise-demo/githubrepo.js');
 var crawlPage  = require('./crawl/webcrawl.js');
 var WebUrl = require('./model/webmine.js');
 var rssfeed  = require('./crawl/rssfeed.js');
@@ -83,6 +83,7 @@ app.get('/example/d', [cb0, cb1], function (req, res, next) {
 
 
 app.get('/webcrawl/', (request, response)=>{
+response.send({"message":"started mining","statusCode": 200});
 crawlPage.start();
 });
 
