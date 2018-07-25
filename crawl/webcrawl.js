@@ -1,7 +1,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var URL = require('url-parse');
-var WebUrl = require('../model/webmine.js');
+var WebUrl = require('../models/schemas/webmine.js');
 
 var START_URL = "http://www.arstechnica.com";
 var SEARCH_WORD = "stemming";
@@ -39,7 +39,7 @@ function visitPage(url, callback) {
     // Add page to our set
     pagesVisited[url] = true;
     numPagesVisited++;
-  
+
     // Make the request
     console.log("Visiting page " + url);
     request(url, function(error, response, body) {
@@ -61,12 +61,12 @@ function visitPage(url, callback) {
        }
     });
 }
-  
+
 function searchForWord($, word) {
     var bodyText = $('html > body').text().toLowerCase();
     return(bodyText.indexOf(word.toLowerCase()) !== -1);
 }
-  
+
 function collectInternalLinks($) {
       var relativeLinks = $("a[href^='/']");
       console.log("Found " + relativeLinks.length + " relative links on page");
@@ -87,7 +87,7 @@ function collectInternalLinks($) {
                     });
               }
           });
-          
+
 });
 }
 

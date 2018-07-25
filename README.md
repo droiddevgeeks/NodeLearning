@@ -32,14 +32,14 @@ This will start server on localhost:5000/
 
 ############ Web Crawler ####################################
 
-1. localhost:5000/webcrawl/ 
+1. localhost:5000/webcrawl/
 this will hit website, parse html and mine http urls and store all url in db
 
 2. localhost:5000/weburls  GET Api , will give all fetch url from database.
 
 
 Another Example of web crawling
-1. localhost:5000/rssfeed/ 
+1. localhost:5000/rssfeed/
 this will hit website, parse html and mine http urls and store all url in db
 
 2. localhost:5000/posts  GET Api , will give all fetch url from database.
@@ -48,10 +48,10 @@ this will hit website, parse html and mine http urls and store all url in db
 ###########################################################
 
 ######################### Sign In and Sign Up ##################################
-1. localhost:5000/api/alluser/:count  GET
-2. localhost:5000/api/signIn POST API
-3. localhost:5000/api/myInfo POST API
-4. localhost:5000/api/signUp POST API
+1. localhost:5000/user/alluser/:count  GET
+2. localhost:5000/user/signIn POST API
+3. localhost:5000/user/myInfo POST API
+4. localhost:5000/user/signUp POST API
 
 
 ########################################################
@@ -59,15 +59,8 @@ this will hit website, parse html and mine http urls and store all url in db
 
 ################################ HTML Rendering#################################
 
-EJS 
+EJS
 view engine
-1. localhost:5000//policy
+1. localhost:5000/policy
 2. localhost:5000/rules
 ###############################################################################
-
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 {
   "name": "NodeLearning",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,10 +17,12 @@
     "mongodb": "^2.2.33",
     "mongoose": "^4.13.0",
     "nodemailer": "^4.3.1",
+    "nodemon": "^1.18.3",
     "pm2": "^2.7.2",
     "pretty-ms": "^3.1.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "require": "^2.4.20",
     "url-parse": "^1.2.0"
   },
   "devDependencies": {},
