@@ -1,7 +1,8 @@
 var User = require('../models/schemas/user.js');
 var mailer = require('../mail/mail.js');
 var models = require('../models');
-
+var http_status = require('../helpers/http_status.js');
+var error_status = require('../helpers/errors.js');
 
 module.exports = {
 signIn  : function(req  ,res) {
@@ -16,10 +17,13 @@ userData.number  =number;
 
 models.userdata.checkUserExist(number , function(err , userExist){
   if(err){
-    return;
+    http_status.INTERNAL_SERVER_ERROR(res, {
+        message: err.message
+    });
   }
   if( userExist){
-   res.send({"Success" : false , "error": "User already exist"});
+    var response = {"Success" : false , "error": "User already exist"};
+    http_status.OK(res, response);
   }
   else{
       console.log("user don't Exist");
@@ -27,8 +31,7 @@ models.userdata.checkUserExist(number , function(err , userExist){
         if(err) return err;
         var response = {};
         response.data =  userInfo;
-      //  mailer.sendMail(userInfo);  // will do later
-        res.send(response);
+        http_status.OK(res, response);
       });
     }
 
@@ -38,19 +41,23 @@ models.userdata.checkUserExist(number , function(err , userExist){
 myInfo:  function(req  ,res){
     var number  = req.body.number;
     if(!number){
-        res.send({"success":false,"error":"parameter missing"});
+        var error = {"success":false,"error":"parameter missing"};
+        error_status.ParamsMissing(error, res);
     }
     models.userdata.checkUserExist(number , function(err , userExist){
       if(err){
-        return;
+        http_status.INTERNAL_SERVER_ERROR(res, {
+            message: err.message
+          });
       }
       if(!userExist){
-       res.send({"Success" : false , "error": "User Dont exist"});
+        var response = {"Success" : false , "error": "User Dont exist"};
+        http_status.OK(res, response);
       }
       else{
        var response = {};
        response.data = userExist;
-       res.send(response);
+       http_status.OK(res, response);
       }
     });
 },
@@ -61,18 +68,22 @@ var number  = req.body.number;
 
 models.userdata.checkUserExist(number , function(err , userExist){
   if(err){
-    return;
+    http_status.INTERNAL_SERVER_ERROR(res, {
+        message: err.message
+    });
   }
   if(!userExist){
-   res.send({"Success" : false , "error": "User Dont exist"});
+    var response = {"Success" : false , "error": "User Dont exist"};
+    http_status.OK(res, response);
   }
   else{
     if(password !== userExist.password){
-      res.send({"Success": false,"reason":"Invalid creadentials"});
+      var error = {"Success": false,"reason":"Invalid creadentials"};
+      error_status.InvalidCredential(error, res);
     }
     var response = {};
     response.data = userExist;
-    res.send(response);
+    http_status.OK(res, response);
     }
   });
 
@@ -81,16 +92,19 @@ models.userdata.checkUserExist(number , function(err , userExist){
 allUserCount  : function(req , res){
    models.userdata.findAll(function( err , users){
        if(err){
-           return;
+         http_status.INTERNAL_SERVER_ERROR(res, {
+             message: err.message
+         });
        }
        if(users.lenght == 0){
-         res.send({"message": "No user data","count":0 , "Status": 400})
+         var response = {"message": "No user data","count":0 , "Status": 400};
+         http_status.OK(res, response);
        }
        var response = {};
        response.count = users.length;
        response.message = "Success";
        response.data = users;
-        res.send(response);
+       http_status.OK(res, response);
    });
  }
 
